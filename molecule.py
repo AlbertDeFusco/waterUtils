@@ -27,7 +27,7 @@ def printCoords(molecules,comment=''):
   print comment.strip()
   for mol in molecules:
     for atom in mol.atoms:
-      print "%-2s %10.5f %10.5f %10.5f" % (atom[0],atom[1][0],atom[1][1],atom[1][2])
+      print "%-2s       %12.7f  %12.7f  %12.7f" % (atom[0],atom[1][0],atom[1][1],atom[1][2])
 
 
 class Molecule(object):
