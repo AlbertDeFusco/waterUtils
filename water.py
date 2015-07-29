@@ -40,22 +40,43 @@ class water(molecule.Molecule):
     self.psi=0.0
 
   def getEuler(self):
+# Euler angles are used to uniquely define the orientation of a
+# water moleule in space. Once known another reference geometry for
+# the water moulecule can rotated into a give orientation
+
+    #Index: 0; Oxygen
+    #Index: 1; Hydrogen
+    #Index: 2; Hydrogen
+
+    #center of mass
     self.com = (self.coords[1,:] + self.coords[2,:] + self.coords[0,:]*16.0)/18.0
 
+    #OH distances
     rp1 = self.coords[1,:] - self.coords[0,:]
     rp3 = self.coords[2,:] - self.coords[0,:]
 
+    #z axis is between the two hydrogen atoms
+    #in the plane of the molecule
     zaxis = rp1 + rp3
     zaxis = -zaxis/norm(zaxis)
 
     rp1p = sum(rp1*zaxis)
 
+    #y axis is perpendicular to z in the plane
     yaxis = rp1 - rp1p*zaxis
     yaxis = yaxis/norm(yaxis)
 
+    #the x axis is perpendicular
     xaxis = np.cross(yaxis,zaxis)
 
     ## step 2: convert to euler angles
+
+    #a vector N in xyz space can be define by three euler angles
+# phi   is the angle between the x axis and N
+# theta is the angle between the z axis and N
+# psi   is the rotation about the z axis
+
+
     self.theta = math.acos(zaxis[2])
     sintheta = math.sin(self.theta)
 
